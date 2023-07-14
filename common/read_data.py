@@ -1,8 +1,8 @@
 import yaml
 import json
+import os
 from configparser import ConfigParser
 from common.logger import logger
-
 
 class MyConfigParser(ConfigParser):
     # 重写 configparser 中的 optionxform 函数，解决 .ini 文件中的 键option 自动转为小写的问题
@@ -31,12 +31,15 @@ class ReadFileData():
         logger.info("读到数据 ==>>  {} ".format(data))
         return data
 
-    def load_ini(self, file_path):
-        logger.info("加载 {} 文件......".format(file_path))
+    def load_ini(self):
+        BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        file_path = os.path.join(BASE_PATH,'config/setting.ini')
+        logger.info("加载{}文件......".format(file_path))
+
         config = MyConfigParser()
         config.read(file_path, encoding="UTF-8")
         data = dict(config._sections)
-        # print("读到数据 ==>>  {} ".format(data))
+        logger.info("读到数据 ==>>  {} ".format(data))
         return data
 
 data = ReadFileData()
