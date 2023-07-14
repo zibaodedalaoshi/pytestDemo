@@ -3,6 +3,7 @@ import os
 import allure
 from common.read_data import data
 from common.logger import logger
+from operation import user
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
@@ -34,7 +35,9 @@ def step_last():
 
 @allure.step("前置步骤 ==>> 管理员用户登录")
 def step_login(username, password):
+    user.pingtai_login()
     logger.info("前置步骤 ==>> 管理员 {} 登录，返回信息 为：{}".format(username, password))
+
 
 
 @pytest.fixture(scope="session")
